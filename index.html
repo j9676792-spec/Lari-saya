@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Lari Saya</title>
+<meta name="theme-color" content="#1fa855">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<style>
+:root{--bg:#eef3ee;--card:#fff;--tx:#14231a;--mu:#6a7a6f;--ac:#1fa855;--ac2:#f08a2c;--bd:#e0e8e1;--on:#fff;--g1:#1fa855;--g2:#0e7a63;--map:#e6efe7;--grid:#d3e0d5;--sh:0 4px 18px rgba(20,60,35,.08);
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#0e1510;--card:#18221b;--tx:#e8f1ea;--mu:#8fa294;--ac:#43d17a;--ac2:#f5a35a;--bd:#263329;--on:#06140b;--g1:#2bb863;--g2:#14806a;--map:#142019;--grid:#1f2f24;--sh:none}}
+:root[data-theme="dark"]{--bg:#0e1510;--card:#18221b;--tx:#e8f1ea;--mu:#8fa294;--ac:#43d17a;--ac2:#f5a35a;--bd:#263329;--on:#06140b;--g1:#2bb863;--g2:#14806a;--map:#142019;--grid:#1f2f24;--sh:none}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--bg);color:var(--tx);font-family:system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;max-width:520px;margin:0 auto;padding:0 14px 96px}
+header{background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;margin:0 -14px 14px;padding:22px 20px 26px;border-radius:0 0 28px 28px}
+header h1{margin:0;font-size:24px}header p{margin:4px 0 0;opacity:.85;font-size:14px}
+.card{background:var(--card);border-radius:20px;padding:16px;margin-bottom:14px;box-shadow:var(--sh);border:1px solid var(--bd)}
+label{display:block;font-size:12px;color:var(--mu);margin-bottom:5px;font-weight:600}
+input,select{width:100%;padding:12px;border-radius:12px;border:1px solid var(--bd);background:var(--bg);color:var(--tx);font-size:16px}
+.row{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:10px}
+button{border:0;border-radius:14px;padding:14px;font-size:16px;font-weight:700;background:linear-gradient(135deg,var(--g1),var(--g2));color:#fff;width:100%;cursor:pointer}
+button.sec{background:var(--bg);color:var(--tx);border:1px solid var(--bd)}
+button.stop{background:linear-gradient(135deg,#ef6a4a,#d6402d)}
+canvas{width:100%;height:270px;border-radius:16px;display:block;background:var(--map)}
+.tiles{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:12px 0}
+.tile{background:var(--bg);border-radius:14px;padding:10px 6px;text-align:center}
+.t4{grid-template-columns:repeat(4,1fr)!important}.t4 .tile b{font-size:20px}.tile b{display:block;font-size:24px;font-variant-numeric:tabular-nums}.tile span{font-size:11px;color:var(--mu);font-weight:600}
+.small{font-size:13px;color:var(--mu);margin:8px 0 0;line-height:1.45}
+.chk{display:flex;gap:10px;align-items:center;margin:4px 0 12px;font-size:15px}.chk input{width:20px;height:20px}
+.ringbox{position:relative;width:230px;height:230px;margin:6px auto}
+.ringbox svg{transform:rotate(-90deg);width:100%;height:100%}
+.ringbox .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.phase{font-size:15px;font-weight:800;letter-spacing:.12em}.big{font-size:52px;font-weight:800;font-variant-numeric:tabular-nums}
+.it{display:flex;gap:12px;align-items:center;padding:10px 0;border-bottom:1px solid var(--bd)}.it:last-child{border:0}
+.it .th{width:56px;height:56px;border-radius:14px;background:var(--map);flex:none;display:flex;align-items:center;justify-content:center;font-size:22px}
+.it .in{flex:1;min-width:0}.it small{color:var(--mu);display:block;font-size:12px;margin-top:2px}
+.x{background:none;color:var(--mu);width:auto;padding:6px 10px;font-size:18px}
+.tab{display:none}.tab.on{display:block}
+.day{display:flex;gap:10px;align-items:flex-start;padding:10px;border-radius:14px;margin-bottom:6px;background:var(--bg)}.day.today{outline:2px solid var(--ac)}.day input{width:22px;height:22px;margin-top:2px;flex:none}.day b{font-size:14px}.day small{display:block;color:var(--mu);font-size:13px;margin-top:2px;line-height:1.4}.day .go{background:none;border:1px solid var(--bd);color:var(--ac);padding:6px 10px;font-size:13px;width:auto;margin-top:6px;border-radius:10px}
+nav{position:fixed;left:0;right:0;bottom:0;display:flex;background:var(--card);border-top:1px solid var(--bd);padding-bottom:env(safe-area-inset-bottom,0px);max-width:520px;margin:0 auto}
+nav button{background:none;color:var(--mu);border-radius:0;padding:10px 2px;font-size:11px;font-weight:700}
+nav button i{display:block;font-style:normal;font-size:21px}nav button.on{color:var(--ac)}
+</style>
+</head>
+<body>
+<header><h1>🏃 Lari Saya</h1><p>Rekam rute, atur interval, dan pantau progres lari</p></header>
+
+<section id="t-run" class="tab on">
+  <div class="card">
+    <canvas id="map"></canvas>
+    <div class="tiles t4">
+      <div class="tile"><b id="rd">0.00</b><span>KM</span></div>
+      <div class="tile"><b id="rt">00:00</b><span>WAKTU</span></div>
+      <div class="tile"><b id="rp">-</b><span>PACE /KM</span></div>
+      <div class="tile"><b id="re">-</b><span>↑ ELEVASI M</span></div>
+    </div>
+    <label class="chk"><input type="checkbox" id="wi"> Jalankan timer interval bersamaan <b id="rph" style="margin-left:auto;color:var(--ac)"></b></label>
+    <button id="rg">▶ Mulai lari</button>
+    <p class="small" id="gs">Rute digambar dari GPS di layar kosong tanpa peta jalan. Biarkan layar tetap menyala saat merekam. Elevasi (total tanjakan) memakai sensor ketinggian GPS dan tidak semua HP mendukung.</p>
+  </div>
+  <div class="card" id="res" style="display:none">
+    <b id="rs">Lari selesai 🎉</b>
+    <div style="margin-top:10px"><label>Rasanya</label><select id="rf"><option>😄 Enteng</option><option selected>🙂 Sedang</option><option>😮‍💨 Berat</option></select></div>
+    <div class="row2"><button id="rsv">Simpan</button><button class="sec" id="rdc">Buang</button></div>
+  </div>
+</section>
+
+<section id="t-timer" class="tab">
+  <div class="card">
+    <div class="ringbox">
+      <svg viewBox="0 0 200 200"><circle cx="100" cy="100" r="90" fill="none" stroke="var(--bd)" stroke-width="12"/><circle id="ring" cx="100" cy="100" r="90" fill="none" stroke="var(--ac)" stroke-width="12" stroke-linecap="round" stroke-dasharray="565.5" stroke-dashoffset="565.5" style="transition:stroke-dashoffset 1s linear,stroke .3s"/></svg>
+      <div class="c"><div class="phase" id="ph">SIAP</div><div class="big" id="tm">00:00</div><div class="small" id="st" style="margin:0">Set 0 dari 0</div></div>
+    </div>
+    <div class="row2"><button id="go">Mulai</button><button class="sec" id="rs2">Reset</button></div>
+  </div>
+  <div class="card">
+    <div class="row">
+      <div><label>Lari (menit)</label><input id="rn" type="number" min="1" value="2"></div>
+      <div><label>Jalan (menit)</label><input id="wk" type="number" min="1" value="1"></div>
+      <div><label>Jumlah set</label><input id="sets" type="number" min="1" value="8"></div>
+    </div>
+    <p class="small">Pemula: 2 menit lari + 1 menit jalan. Lari pelan sampai masih bisa mengobrol, lalu tambah durasi lari tiap minggu.</p>
+  </div>
+</section>
+
+<section id="t-log" class="tab">
+  <div class="card"><div class="tiles t4" style="margin:0">
+    <div class="tile"><b id="s1">0</b><span>KM MGG INI</span></div>
+    <div class="tile"><b id="s2">0</b><span>LARI</span></div>
+    <div class="tile"><b id="s3">-</b><span>PACE</span></div>
+    <div class="tile"><b id="s4">0</b><span>↑ ELEVASI M</span></div>
+  </div></div>
+  <div class="card"><b>🏆 Personal Best</b><div id="pbx" style="margin-top:10px"></div></div>
+  <div class="card"><b>Riwayat</b><p class="small" id="sync" style="margin:6px 0 4px">Memeriksa penyimpanan…</p><div id="ls"></div>
+    <div class="row2"><button class="sec" id="bk">⬇ Cadangkan</button><button class="sec" onclick="$('rsF').click()">⬆ Pulihkan</button></div>
+    <input type="file" id="rsF" accept=".json,application/json" hidden></div>
+  <div class="card">
+    <b>Tambah manual</b>
+    <div class="row" style="margin-top:10px">
+      <div><label>Jarak (km)</label><input id="km" type="number" step="0.01" min="0" placeholder="3.5"></div>
+      <div><label>Menit</label><input id="mn" type="number" step="0.1" min="0" placeholder="30"></div>
+      <div><label>Rasanya</label><select id="fe"><option>😄 Enteng</option><option selected>🙂 Sedang</option><option>😮‍💨 Berat</option></select></div>
+    </div>
+    <div style="margin-top:10px"><label>Catatan (opsional)</label><input id="nt" placeholder="Kaki berat, tidur kurang…"></div>
+    <div style="margin-top:12px"><button id="sv">Simpan lari</button></div>
+  </div>
+</section>
+
+<nav><button class="on" data-t="run"><i>📍</i>Lari</button><button data-t="timer"><i>⏱</i>Interval</button><button data-t="log"><i>📒</i>Riwayat</button></nav>
+
+<script>
+const $=id=>document.getElementById(id);
+const fmt=s=>String(Math.floor(s/60)).padStart(2,'0')+':'+String(Math.floor(s%60)).padStart(2,'0');
+const pace=(m,k)=>{if(!k)return '-';const p=m/k;return Math.floor(p)+':'+String(Math.round((p%1)*60)%60).padStart(2,'0')};
+const css=v=>getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+document.querySelectorAll('nav button').forEach(b=>b.onclick=()=>{
+  document.querySelectorAll('nav button').forEach(x=>x.classList.toggle('on',x===b));
+  document.querySelectorAll('.tab').forEach(t=>t.classList.toggle('on',t.id==='t-'+b.dataset.t));
+  if(b.dataset.t==='run')drawMap();});
+
+/* ---------- Interval ---------- */
+let plan=[],idx=0,left=0,timer=null,running=false,ac=null;
+function beep(n){try{ac=ac||new (window.AudioContext||window.webkitAudioContext)();
+  for(let i=0;i<n;i++){const o=ac.createOscillator(),g=ac.createGain();o.connect(g);g.connect(ac.destination);o.frequency.value=880;g.gain.value=.2;const t=ac.currentTime+i*.25;o.start(t);o.stop(t+.15);}}catch(e){}
+  try{navigator.vibrate&&navigator.vibrate(n>1?[200,100,200]:200)}catch(e){}}
+function build(){const r=+$('rn').value*60,w=+$('wk').value*60,n=+$('sets').value;plan=[];for(let i=0;i<n;i++){plan.push({n:'LARI',d:r,s:i+1});plan.push({n:'JALAN',d:w,s:i+1});}}
+function show(){const p=plan[idx];if(!p)return;const c=p.n==='LARI'?'var(--ac)':'var(--ac2)';
+  $('ph').textContent=p.n;$('ph').style.color=c;$('ring').style.stroke=c;$('tm').textContent=fmt(left);
+  $('st').textContent='Set '+p.s+' dari '+(plan.length/2);$('ring').style.strokeDashoffset=565.5*left/p.d;
+  $('rph').textContent=p.n+' '+fmt(left);}
+function tick(){left--;
+  if(left<=0){idx++;if(idx>=plan.length){stopI();$('ph').textContent='SELESAI';$('tm').textContent='00:00';$('ring').style.strokeDashoffset=0;$('rph').textContent='Interval selesai';beep(3);$('go').textContent='Mulai';return;}
+    left=plan[idx].d;beep(plan[idx].n==='LARI'?2:1);}
+  show();}
+function stopI(){clearInterval(timer);running=false;}
+$('go').onclick=()=>{
+  if(running){stopI();$('go').textContent='Lanjut';return;}
+  if(!plan.length||idx>=plan.length){build();idx=0;left=plan[0].d;}
+  running=true;$('go').textContent='Jeda';beep(1);show();timer=setInterval(tick,1000);};
+function resetI(){stopI();plan=[];idx=0;$('go').textContent='Mulai';$('ph').textContent='SIAP';$('ph').style.color='';$('tm').textContent='00:00';$('st').textContent='Set 0 dari 0';$('ring').style.strokeDashoffset=565.5;$('rph').textContent='';}
+$('rs2').onclick=resetI;
+
+/* ---------- Peta & GPS (rute digambar sendiri, tanpa tile peta) ---------- */
+function proj(pts,w,h,pad){
+  const la=pts.map(p=>p[0]),lo=pts.map(p=>p[1]);let a0=Math.min(...la),a1=Math.max(...la),o0=Math.min(...lo),o1=Math.max(...lo);
+  const k=Math.cos(((a0+a1)/2)*Math.PI/180),ca=(a0+a1)/2,co=(o0+o1)/2;
+  const sa=Math.max(a1-a0,.0007),so=Math.max((o1-o0)*k,.0007);
+  const sc=Math.min((w-2*pad)/so,(h-2*pad)/sa);
+  return p=>[w/2+(p[1]-co)*k*sc,h/2-(p[0]-ca)*sc];}
+let gps={on:false,pts:[],dist:0,t0:0,wid:null,tk:null},raf=0;
+function drawMap(){
+  const cv=$('map'),r=cv.getBoundingClientRect();if(!r.width)return;
+  const d=window.devicePixelRatio||1;cv.width=r.width*d;cv.height=r.height*d;
+  const x=cv.getContext('2d');x.scale(d,d);const w=r.width,h=r.height;
+  x.fillStyle=css('--map');x.fillRect(0,0,w,h);x.strokeStyle=css('--grid');x.lineWidth=1;
+  for(let i=0;i<w;i+=36){x.beginPath();x.moveTo(i,0);x.lineTo(i,h);x.stroke();}
+  for(let i=0;i<h;i+=36){x.beginPath();x.moveTo(0,i);x.lineTo(w,i);x.stroke();}
+  const P=gps.pts;
+  if(!P.length){x.fillStyle=css('--mu');x.font='600 15px system-ui';x.textAlign='center';x.fillText('Tekan "Mulai lari" untuk merekam rute',w/2,h/2);return;}
+  const f=proj(P,w,h,34);
+  x.lineCap=x.lineJoin='round';x.lineWidth=11;x.strokeStyle='rgba(31,168,85,.22)';
+  x.beginPath();P.forEach((p,i)=>{const q=f(p);i?x.lineTo(q[0],q[1]):x.moveTo(q[0],q[1]);});x.stroke();
+  x.lineWidth=5;x.strokeStyle=css('--ac');x.stroke();
+  const s=f(P[0]),e=f(P[P.length-1]);
+  x.fillStyle='#fff';x.strokeStyle=css('--ac');x.lineWidth=4;x.beginPath();x.arc(s[0],s[1],7,0,7);x.fill();x.stroke();
+  const pulse=gps.on?4*Math.sin(Date.now()/250)+4:0;
+  x.fillStyle='rgba(46,125,255,.25)';x.beginPath();x.arc(e[0],e[1],12+pulse,0,7);x.fill();
+  x.fillStyle='#2e7dff';x.strokeStyle='#fff';x.lineWidth=3;x.beginPath();x.arc(e[0],e[1],8,0,7);x.fill();x.stroke();}
+document.addEventListener('visibilitychange',()=>{if(gps.on&&document.visibilityState==='visible'){try{navigator.wakeLock.request('screen').then(w=>gps.wl=w).catch(()=>{})}catch(e){}}});
+function loop(){drawMap();if(gps.on)raf=requestAnimationFrame(loop);}
+function hav(a,b){const R=6371000,r=Math.PI/180,dl=(b[0]-a[0])*r,dn=(b[1]-a[1])*r;
+  return 2*R*Math.asin(Math.sqrt(Math.sin(dl/2)**2+Math.cos(a[0]*r)*Math.cos(b[0]*r)*Math.sin(dn/2)**2));}
+function upd(){const s=(Date.now()-gps.t0)/1000,k=gps.dist/1000;
+  $('rd').textContent=k.toFixed(2);$('rt').textContent=fmt(s);$('rp').textContent=pace(s/60,k);$('re').textContent=gps.hasAlt?Math.round(gps.gain):'-';}
+function startRun(){
+  gps={on:true,pts:[],dist:0,gain:0,loss:0,ref:null,hasAlt:false,t0:Date.now(),wid:null,tk:setInterval(upd,1000)};
+  $('res').style.display='none';$('rg').textContent='■ Selesai';$('rg').classList.add('stop');upd();loop();$('gs').textContent='Mencari sinyal GPS… tunggu beberapa detik di area terbuka.';
+  try{navigator.wakeLock&&navigator.wakeLock.request('screen').then(w=>gps.wl=w).catch(()=>{});}catch(e){}
+  if(!navigator.geolocation){$('gs').textContent='GPS tidak tersedia di perangkat ini. Waktu tetap direkam.';}
+  else gps.wid=navigator.geolocation.watchPosition(pos=>{
+    const c=pos.coords;if(c.accuracy>80){$('gs').textContent='Sinyal GPS lemah (±'+Math.round(c.accuracy)+' m). Keluar ke area terbuka.';return;}
+    const p=[c.latitude,c.longitude],l=gps.pts[gps.pts.length-1];
+    if(l){const d=hav(l,p),dt2=(pos.timestamp-(gps.lt||pos.timestamp))/1000;if(d<Math.max(3,c.accuracy/3))return;if(dt2>0&&d/dt2>12)return;gps.dist+=d;}gps.lt=pos.timestamp;
+    if(c.altitude!=null&&(c.altitudeAccuracy==null||c.altitudeAccuracy<=20)){gps.hasAlt=true;if(gps.ref==null)gps.ref=c.altitude;else{const dz=c.altitude-gps.ref;if(Math.abs(dz)>=3){dz>0?gps.gain+=dz:gps.loss-=dz;gps.ref=c.altitude;}}}
+    gps.pts.push(p);$('gs').textContent='GPS aktif ✓ akurasi ±'+Math.round(c.accuracy)+' m · '+gps.pts.length+' titik';upd();},
+    e=>{$('gs').textContent=e.code===1?'Akses lokasi ditolak. Izinkan lokasi untuk browser ini di Pengaturan HP, lalu mulai lagi.':e.code===3?'GPS belum mendapat sinyal. Keluar ke area terbuka.':'Lokasi tidak tersedia. Nyalakan Layanan Lokasi/GPS di HP.';},
+    {enableHighAccuracy:true,maximumAge:1000,timeout:20000});
+  if($('wi').checked){resetI();$('go').click();}}
+function endRun(){
+  gps.on=false;clearInterval(gps.tk);try{gps.wl&&gps.wl.release()}catch(e){}if(gps.wid!=null)navigator.geolocation.clearWatch(gps.wid);
+  stopI();$('rg').textContent='▶ Mulai lari';$('rg').classList.remove('stop');drawMap();
+  gps.sec=(Date.now()-gps.t0)/1000;
+  $('rs').textContent='Lari selesai 🎉  '+(gps.dist/1000).toFixed(2)+' km · '+fmt(gps.sec)+(gps.hasAlt?' · ↑'+Math.round(gps.gain)+' m':'');$('res').style.display='block';}
+$('rg').onclick=()=>gps.on?endRun():startRun();
+$('rdc').onclick=()=>{$('res').style.display='none';gps.pts=[];gps.dist=0;gps.gain=gps.loss=0;gps.hasAlt=false;['rd','rt','rp','re'].forEach((i,n)=>$(i).textContent=['0.00','00:00','-','-'][n]);drawMap();};
+$('rsv').onclick=()=>{const st=Math.ceil(gps.pts.length/150)||1;
+  addRun({t:Date.now(),km:+(gps.dist/1000).toFixed(2),mn:+(gps.sec/60).toFixed(1),fe:$('rf').value,nt:'',el:gps.hasAlt?Math.round(gps.gain):null,ed:gps.hasAlt?Math.round(gps.loss):null,rt:gps.pts.filter((_,i)=>i%st===0).map(p=>[+p[0].toFixed(5),+p[1].toFixed(5)])});
+  save();render();$('rdc').click();document.querySelector('nav [data-t=log]').click();};
+window.addEventListener('resize',drawMap);drawMap();
+
+/* ---------- Riwayat ---------- */
+let logs=[],prof={},col=null,base=null,remote=new Set();
+try{logs=JSON.parse(localStorage.getItem('lari')||'[]');prof=JSON.parse(localStorage.getItem('lari-prof')||'{}')}catch(e){}
+const setSt=m=>{$('sync').textContent=m};
+async function syncAll(){if(!col)return;
+  try{for(const l of logs){if(!remote.has(l.t)){await col.doc(String(l.t)).set(l);remote.add(l.t);}}
+    await base.set(prof);setSt('☁️ Tersimpan di akun Anda. Aman walau aplikasi ditutup.');
+  }catch(e){setSt('⚠️ Gagal sinkron ke akun. Data aman di perangkat dan akan dicoba lagi.');}}
+const save=()=>{try{localStorage.setItem('lari',JSON.stringify(logs));localStorage.setItem('lari-prof',JSON.stringify(prof))}catch(e){}syncAll();};
+setSt('💾 Tersimpan di perangkat ini. Pakai Cadangkan secara berkala agar aman.');try{navigator.storage&&navigator.storage.persist&&navigator.storage.persist()}catch(e){}
+$('bk').onclick=async()=>{try{const d=typeof claude!=='undefined'?await claude.use('downloads'):null;
+  if(d){await d.save({filename:'riwayat-lari.json',data:JSON.stringify({logs,prof})});return;}
+  const a=document.createElement('a');a.href=URL.createObjectURL(new Blob([JSON.stringify({logs,prof})],{type:'application/json'}));a.download='riwayat-lari.json';document.body.appendChild(a);a.click();a.remove();
+}catch(e){setSt('Cadangan gagal dibuat.');}};
+$('rsF').onchange=async e=>{try{const j=JSON.parse(await e.target.files[0].text()),m=new Map(logs.map(l=>[l.t,l]));
+  (j.logs||[]).forEach(l=>{if(l&&l.t&&l.km!=null)m.set(l.t,l)});logs=[...m.values()].sort((a,b)=>a.t-b.t);save();render();}catch(x){setSt('File cadangan tidak valid.');}};
+function thumb(rt){if(!rt||rt.length<2)return '👟';const f=proj(rt,56,56,6);
+  return '<svg viewBox="0 0 56 56" width="56" height="56"><polyline fill="none" stroke="var(--ac)" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" points="'+rt.map(p=>f(p).map(v=>v.toFixed(1)).join(',')).join(' ')+'"/></svg>';}
+let P={},newPB='';
+function pbs(a){const r={};a.forEach(l=>{if(l.km>=1){const p=l.mn/l.km;if(!r.pace||p<r.pace.v)r.pace={v:p,t:l.t};}
+  if(!r.km||l.km>r.km.v)r.km={v:l.km,t:l.t};if(!r.mn||l.mn>r.mn.v)r.mn={v:l.mn,t:l.t};if(l.el&&(!r.el||l.el>r.el.v))r.el={v:l.el,t:l.t};});return r;}
+function addRun(run){logs.push(run);const n=pbs(logs),nm={pace:'pace tercepat',km:'jarak terjauh',mn:'durasi terlama',el:'tanjakan terbesar'};
+  newPB=logs.length>1?Object.keys(n).filter(k=>n[k].t===run.t).map(k=>nm[k]).join(', '):'';}
+const hold=l=>Object.keys(P).some(k=>P[k].t===l.t)?'🏆 ':'';
+const fm=m=>m>=60?Math.floor(m/60)+'j '+Math.round(m%60)+'m':Math.round(m)+' mnt';
+const dt=t=>new Date(t).toLocaleDateString('id-ID',{day:'numeric',month:'short',year:'2-digit'});
+function renderPB(){$('pbx').innerHTML=logs.length?(newPB?`<p class="small" style="color:var(--ac);font-weight:700;margin:0 0 8px">🏆 Rekor baru: ${newPB}!</p>`:'')+'<div class="tiles" style="grid-template-columns:1fr 1fr;margin:0">'+[['pace','Pace tercepat',v=>pace(v,1)+' /km'],['km','Jarak terjauh',v=>v+' km'],['mn','Durasi terlama',fm],['el','Tanjakan terbesar',v=>v+' m']].map(([k,n,f])=>`<div class="tile"><b>${P[k]?f(P[k].v):'-'}</b><span>${n.toUpperCase()}${P[k]?' · '+dt(P[k].t):''}</span></div>`).join('')+'</div><p class="small">Pace tercepat dihitung dari lari minimal 1 km.</p>':'<p class="small">Rekor Anda muncul setelah lari pertama tersimpan.</p>';}
+function render(){
+  const wk=new Date();wk.setHours(0,0,0,0);wk.setDate(wk.getDate()-((wk.getDay()+6)%7));
+  const w=logs.filter(l=>l.t>=wk.getTime()),km=w.reduce((a,l)=>a+l.km,0),mn=w.reduce((a,l)=>a+l.mn,0);
+  $('s1').textContent=km.toFixed(1);$('s2').textContent=w.length;$('s3').textContent=pace(mn,km);$('s4').textContent=w.reduce((a,l)=>a+(l.el||0),0);P=pbs(logs);renderPB();
+  $('ls').innerHTML=logs.length?logs.slice().reverse().map(l=>`<div class="it"><div class="th">${thumb(l.rt)}</div><div class="in"><b>${hold(l)}${l.km} km · ${l.mn} mnt</b><small>${new Date(l.t).toLocaleDateString('id-ID',{weekday:'short',day:'numeric',month:'short'})} · ${pace(l.mn,l.km)}/km${l.el!=null?' · ↑'+l.el+' m':''} · ${l.fe}${l.nt?' · '+l.nt.replace(/</g,'&lt;'):''}</small></div><button class="x" onclick="del(${l.t})">✕</button></div>`).join(''):'<p class="small">Belum ada lari. Rekam lari pertamamu di tab Lari.</p>';}
+window.del=t=>{logs=logs.filter(l=>l.t!==t);save();render();if(col)col.doc(String(t)).delete().then(()=>remote.delete(t)).catch(()=>{});};
+$('sv').onclick=()=>{const km=+$('km').value,mn=+$('mn').value;if(!km||!mn)return;
+  addRun({t:Date.now(),km,mn,fe:$('fe').value,nt:$('nt').value});save();$('km').value=$('mn').value=$('nt').value='';render();};
+
+render();
+</script>
+</body>
+</html>
